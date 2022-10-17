@@ -27,7 +27,7 @@ public function storeUsers($users)
 					'name' => $user['name'],
 					'login' => $user['login'],
 					'email' => $user['email'],
-					'password' => md5($user['password'])
+					'password' => PASSWORD_HASH($user['password'], PASSWORD_DEFAULT)
 		]);}
         } catch (Throwable $e) {
             return Redirect::back()->withErrors(['error', ['We couldn\'t store user: ' . $e->getMessage()]]);
