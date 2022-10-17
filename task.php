@@ -9,7 +9,7 @@ public function updateUsers($users)
 					'name' => $user['name'],
 					'login' => $user['login'],
 					'email' => $user['email'],
-					'password' => md5($user['password'])
+					'password' => PASSWORD_HASH($user['password'], PASSWORD_DEFAULT)
 			]);}
 		} catch (Throwable $e) {
 			return Redirect::back()->withErrors(['error', ['We couldn\'t update user: ' . $e->getMessage()]]);
@@ -20,36 +20,35 @@ public function updateUsers($users)
 
 public function storeUsers($users)
 {
-    foreach ($users as $user) {
-        try {
+	foreach ($users as $user) {
+		try {
 			if ($user['name'] && $user['login'] && $user['email'] && $user['password'] && strlen($user['name']) >= 10)
 			{DB::table('users')->insert([
 					'name' => $user['name'],
 					'login' => $user['login'],
 					'email' => $user['email'],
 					'password' => PASSWORD_HASH($user['password'], PASSWORD_DEFAULT)
-		]);}
-        } catch (Throwable $e) {
-            return Redirect::back()->withErrors(['error', ['We couldn\'t store user: ' . $e->getMessage()]]);
-        }
-    }
-    $this->sendEmail($users);
-    return Redirect::back()->with(['success', 'All users created.']);
+			]);}
+		} catch (Throwable $e) {
+			return Redirect::back()->withErrors(['error', ['We couldn\'t store user: ' . $e->getMessage()]]);
+		}
+	}
+	$this->sendEmail($users);
+	return Redirect::back()->with(['success', 'All users created.']);
 }
 
 private function sendEmail($users)
 {
-    foreach ($users as $user) {
-        $message = 'Account has beed created. You can log in as <b>' . $user['login'] . '</b>';
-        if ($user['email']) {
-            Mail::to($user['email'])
-                ->cc('support@company.com')
-                ->subject('New account created')
-                ->queue($message);
-        }
-    }
-    return true;
+	foreach ($users as $user) {
+		$message = 'Account has beed created. You can log in as <b>' . $user['login'] . '</b>';
+			if ($user['email']) {
+				Mail::to($user['email'])
+				->cc('support@company.com')
+				->subject('New account created')
+				->queue($message);
+	}
 }
-
+	return true;
+}
 
 ?>
