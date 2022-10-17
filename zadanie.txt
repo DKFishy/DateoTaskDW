@@ -1,0 +1,5 @@
+Notatki do oryginalnego php:
+- Mieszane formatowanie kodu. Spacje i tabulatory nie powinny być mieszane. 
+- Używanie MD5 do hashowania haseł. Obecnie nie jest rekomendowany, gdyż oferuje niski poziom zabezpieczeń. PASSWORD_HASH oferuje lepsze zabespieczenia z różnymi metodami hashowania. Alternatywą może też być CRYPT.
+- Ukośnik (/) przed Throwable. Ukośnik jest używany do określania lokacji oraz przed znakami specjalnymi w tekstach i powinien być usunięty.
+- Powwino unikać się powtarzania kodu. Jeśli można, powtarzalny kod można zamienić w funkcję. 
