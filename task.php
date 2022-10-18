@@ -1,5 +1,5 @@
 <?
-class test{
+class user{
 	public function manageUsers($users, $action)
 	{
 		if($action == 'update'){
